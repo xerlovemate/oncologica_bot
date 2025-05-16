@@ -40,13 +40,3 @@ async def set_user_phone_and_name(tg_id: int, user_name: str, phone_number: str)
                 user.phone_number = phone_number
 
             await session.commit()
-
-
-async def get_user_name_by_tg_id(tg_id: int) -> str | None:
-    async with async_session() as session:
-        result = await session.execute(
-            select(User.user_name).where(User.tg_id == tg_id)
-        )
-        user_name = result.scalar_one_or_none()
-
-        return user_name
